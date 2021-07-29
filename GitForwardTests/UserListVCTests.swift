@@ -121,17 +121,17 @@ class UserListVCTests: XCTestCase {
         let loadExpectation = expectation(description: "load has finished")
         let fetchExpectation = expectation(description: "fetch has finished")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             XCTAssertEqual(self.sut.vm.state.value, .error(ServiceError.decoding))
             loadExpectation.fulfill()
             self.mockUserService.responseType = .normal
             self.sut.vm.fetchUsers()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 XCTAssertEqual(self.sut.vm.state.value, .idle)
                 fetchExpectation.fulfill()
             }
         }
 
-        wait(for: [loadExpectation, fetchExpectation], timeout: 0.5)
+        wait(for: [loadExpectation, fetchExpectation], timeout: 5)
     }
 }

@@ -7,4 +7,11 @@
 
 import Foundation
 
-// fork: Bool
+struct Repository: Codable {
+    let id: Int
+    let name: String
+    let description: String
+    let fork: Bool
+    let stargazersCount: Int
+    let language: String
+}

@@ -57,9 +57,16 @@ final class UserService: UserServiceProtocol {
             }.resume()
     }
 
-//    func getUserRepos(user: User, _ completion: @escaping (_ result: Result<[Repository],Error>) -> Void = { _ in }) {
-//
-//    }
+    func getUserDetails(user: User, completion: @escaping (_ result: Result<[UserDetail], ServiceError>) -> Void) {
+        
+    }
+
+    func getUserRepos(user: User,
+                      completion: @escaping (_ result: Result<[Repository], Error>) -> Void) {
+
+    }
+
+    enum Endpoint { case users, userDetails, userRepos }
 
     private func request() -> URLRequest {
         let url = URL(staticString: "https://api.github.com/users")

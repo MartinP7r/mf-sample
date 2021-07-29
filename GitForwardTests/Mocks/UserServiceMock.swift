@@ -21,11 +21,9 @@ final class UserServiceMock: UserServiceProtocol {
     }
 
     func getUsers(completion: @escaping (_ result: Result<[User], ServiceError>) -> Void) {
-        print("CALLED")
         callCount += 1
         switch responseType {
         case .normal:
-            print("BLUB", [userFixture])
             completion(.success([userFixture]))
         case .withError:
             completion(.failure(.decoding))

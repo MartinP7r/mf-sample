@@ -12,3 +12,13 @@ struct User: Codable {
     let login: String
     let avatarUrl: URL
 }
+
+struct UserDetail: Codable {
+    let id: Int
+    let login: String
+    let avatarUrl: URL
+
+    let name: String
+    let followers: Int
+    let following: Int
+}
