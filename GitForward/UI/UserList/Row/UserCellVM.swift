@@ -21,6 +21,6 @@ class UserCellVM {
     var userHandle: String { "@\(user.login)" }
 
     func avatarImage(completion: @escaping (UIImage?) -> Void) -> Cancellable {
-        imageService.get(for: user.avatarUrl, completion: completion)
+        imageService.getImage(for: user.avatarUrl, completion: completion)
     }
 }

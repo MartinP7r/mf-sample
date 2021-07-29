@@ -14,12 +14,12 @@ protocol Cancellable {
 extension URLSessionTask: Cancellable {}
 
 protocol ImageServiceProtocol {
-    func get(for url: URL, completion: @escaping (UIImage?) -> Void) -> Cancellable
+    func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) -> Cancellable
 }
 
 struct ImageService: ImageServiceProtocol {
 
-    func get(for url: URL, completion: @escaping (UIImage?) -> Void) -> Cancellable {
+    func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) -> Cancellable {
         let dataTask = URLSession.shared.dataTask(with: url) { data, _, _ in
             var image: UIImage?
 

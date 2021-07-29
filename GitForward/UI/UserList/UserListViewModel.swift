@@ -40,8 +40,8 @@ class UserListViewModel {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let users):
-                        self.users.value = users
                         self.state.value = .idle
+                        self.users.value = users
                     case .failure(let error):
                         self.state.value = .error(error)
                     }

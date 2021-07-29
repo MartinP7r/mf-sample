@@ -12,11 +12,10 @@ class UserListVC: ViewController {
     // MARK: - Properties
 
     let vm: UserListViewModel
-//    private var subscriptions = Set<AnyCancellable>()
 
     // MARK: - View Elements
     var contentView: UserListView!
-    lazy var refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil)
+    var refreshButton: UIBarButtonItem!
 
     // MARK: - Initialization
 
@@ -58,15 +57,18 @@ fileprivate extension UserListVC {
 
     func setupNavigationBar() {
         navigationItem.title = "GitHub DM"
-        navigationItem.rightBarButtonItem = refreshButton
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                        target: self,
+                                        action: #selector(UserListVC.viewBinding))
         refreshButton.accessibilityIdentifier = UID.UserList.reloadButton
+        navigationItem.rightBarButtonItem = refreshButton
     }
 
     // MARK: - ViewModel Binding
 
     func setupBinding() {
         bindViewModel()
-        bindView()
+//        bindView()
     }
 
     /// Bindings from the viewModel to the view
@@ -82,17 +84,14 @@ fileprivate extension UserListVC {
             }
         }
         vm.users.bind { [weak self] _ in
-            self?.contentView.tableView.reloadSections([0], with: .automatic)
+            guard let self = self else { return }
+            self.contentView.tableView.reloadSections([0], with: .automatic)
         }
     }
 
     /// Bindings from the view to the viewModel
-    func bindView() {
-        refreshButton.action = #selector(tapped)
-    }
-
-    @objc func tapped() {
-        // bind vm
+    @objc func viewBinding() {
+        vm.fetchUsers()
     }
 
     // MARK: - Intents
