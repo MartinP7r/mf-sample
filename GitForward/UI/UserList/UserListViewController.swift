@@ -1,5 +1,5 @@
 //
-//  UserListVC.swift
+//  UserListViewController.swift
 //  GitForward
 //
 //  Created by Martin Pfundmair on 2021-07-22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserListVC: ViewController {
+class UserListViewController: ViewController {
 
     // MARK: - Properties
 
@@ -41,7 +41,7 @@ class UserListVC: ViewController {
     }
 }
 
-fileprivate extension UserListVC {
+fileprivate extension UserListViewController {
 
     // MARK: - View Setup
 
@@ -59,7 +59,7 @@ fileprivate extension UserListVC {
         navigationItem.title = "GitHub DM"
         refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh,
                                         target: self,
-                                        action: #selector(UserListVC.viewBinding))
+                                        action: #selector(UserListViewController.viewBinding))
         refreshButton.accessibilityIdentifier = UID.UserList.reloadButton
         navigationItem.rightBarButtonItem = refreshButton
     }
@@ -110,7 +110,7 @@ fileprivate extension UserListVC {
 }
 
 // MARK: - TableView
-extension UserListVC: UITableViewDataSource, UITableViewDelegate {
+extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return vm.users.value.count

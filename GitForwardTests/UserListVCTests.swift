@@ -12,7 +12,7 @@ class UserListVCTests: XCTestCase {
 
     // MARK: - Properties
 
-    var sut: UserListVC!
+    var sut: UserListViewController!
     var window: UIWindow!
     var navCon: UINavigationController!
     var mockUserService: UserServiceMock!
@@ -38,7 +38,7 @@ class UserListVCTests: XCTestCase {
     // MARK: - Test Setup
 
     func setupSUT() {
-        sut = UserListVC(viewModel: .init(userService: mockUserService,
+        sut = UserListViewController(viewModel: .init(userService: mockUserService,
                                           imageService: mockImageService))
 
         navCon = UINavigationController(rootViewController: sut)
@@ -60,7 +60,7 @@ class UserListVCTests: XCTestCase {
 
     func test_initWithCoder() throws {
         let archiver = NSKeyedArchiver(requiringSecureCoding: true)
-        let viewController = UserListVC(coder: archiver)
+        let viewController = UserListViewController(coder: archiver)
         XCTAssertNil(viewController)
     }
 

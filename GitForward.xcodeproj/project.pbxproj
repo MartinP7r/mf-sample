@@ -13,7 +13,7 @@
 		6E257C2C26B139A500A08291 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2126B139A500A08291 /* ViewController.swift */; };
 		6E257C2D26B139A500A08291 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2226B139A500A08291 /* ActivityIndicatorView.swift */; };
 		6E257C2E26B139A500A08291 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2426B139A500A08291 /* UserListView.swift */; };
-		6E257C2F26B139A500A08291 /* UserListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2526B139A500A08291 /* UserListVC.swift */; };
+		6E257C2F26B139A500A08291 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2526B139A500A08291 /* UserListViewController.swift */; };
 		6E257C3026B139A500A08291 /* UserCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2726B139A500A08291 /* UserCellVM.swift */; };
 		6E257C3126B139A500A08291 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2826B139A500A08291 /* UserCell.swift */; };
 		6E257C3226B139A500A08291 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2926B139A500A08291 /* UserListViewModel.swift */; };
@@ -64,7 +64,7 @@
 		6E257C2126B139A500A08291 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E257C2226B139A500A08291 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		6E257C2426B139A500A08291 /* UserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
-		6E257C2526B139A500A08291 /* UserListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListVC.swift; sourceTree = "<group>"; };
+		6E257C2526B139A500A08291 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		6E257C2726B139A500A08291 /* UserCellVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCellVM.swift; sourceTree = "<group>"; };
 		6E257C2826B139A500A08291 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		6E257C2926B139A500A08291 /* UserListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 			children = (
 				6E257C2926B139A500A08291 /* UserListViewModel.swift */,
 				6E257C2426B139A500A08291 /* UserListView.swift */,
-				6E257C2526B139A500A08291 /* UserListVC.swift */,
+				6E257C2526B139A500A08291 /* UserListViewController.swift */,
 				6E257C2626B139A500A08291 /* Row */,
 			);
 			path = UserList;
@@ -230,8 +230,8 @@
 		6E257C3726B13A3E00A08291 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				6E257C3B26B157E400A08291 /* ImageService.swift */,
 				6E257C3C26B157E400A08291 /* UserService.swift */,
+				6E257C3B26B157E400A08291 /* ImageService.swift */,
 				6E257C4C26B1807000A08291 /* RepoService.swift */,
 			);
 			path = Networking;
@@ -429,7 +429,7 @@
 				6E257C3E26B157E400A08291 /* UserService.swift in Sources */,
 				6E257C3D26B157E400A08291 /* ImageService.swift in Sources */,
 				6E257C3626B13A1B00A08291 /* User.swift in Sources */,
-				6E257C2F26B139A500A08291 /* UserListVC.swift in Sources */,
+				6E257C2F26B139A500A08291 /* UserListViewController.swift in Sources */,
 				6E257C6E26B36C3800A08291 /* UserDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
