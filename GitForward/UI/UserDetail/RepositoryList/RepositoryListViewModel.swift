@@ -49,7 +49,6 @@ class RepositoryListViewModel {
                             .sorted(by: >)
                     case .failure(let error):
                         self.state.value = .error(error)
-                        print(error)
                     }
                 }
             }

@@ -123,15 +123,14 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
                 .dequeueReusableCell(withIdentifier: UserCell.id,
                                      for: indexPath) as? UserCell else { return UITableViewCell() }
 
-        let cellVM = vm.userCellVMs[indexPath.row]
+        let cellVM = vm.userCellViewModels[indexPath.row]
         cell.configureWith(viewModel: cellVM)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellVM = vm.userCellVMs[indexPath.row]
-//        let detailVC = RepositoryListViewController(viewModel: RepositoryListViewModel(user: cellVM.user))
-        let detailVC = UserDetailViewController(user: cellVM.user)
+        let cellViewModel = vm.userCellViewModels[indexPath.row]
+        let detailVC = UserDetailViewController(user: cellViewModel.user)
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }

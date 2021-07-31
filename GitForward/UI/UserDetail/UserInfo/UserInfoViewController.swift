@@ -79,5 +79,6 @@ fileprivate extension UserInfoViewController {
         }
         alertController.view.accessibilityIdentifier = UID.UserInfo.alertView
         alertController.addAction(alertAction)
+        present(alertController, animated: true)
     }
 }

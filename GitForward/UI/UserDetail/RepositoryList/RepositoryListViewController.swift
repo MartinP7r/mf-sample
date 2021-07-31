@@ -95,6 +95,7 @@ fileprivate extension RepositoryListViewController {
         }
         alertController.view.accessibilityIdentifier = UID.RepositoryList.alertView
         alertController.addAction(alertAction)
+        present(alertController, animated: true)
     }
 }
 
