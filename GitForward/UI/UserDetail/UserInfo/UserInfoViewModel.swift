@@ -14,6 +14,7 @@ class UserInfoViewModel {
     private let gitHubService: GitHubServiceProtocol
     private let imageService: ImageServiceProtocol
 
+    // TODO: refactor to userInfoFormatted?
     private(set) var userInfo: Box<UserInfo?> = Box(nil)
     private(set) var state: Box<ViewState> = Box(.idle)
 

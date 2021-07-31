@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIApplication
 
 struct RepositoryCellViewModel {
 
@@ -31,8 +32,15 @@ struct RepositoryCellViewModel {
     }
     var starsCount: String { "⭐️ \(repo.stargazersCount)" }
     var description: String { repo.description ?? "" }
+    var url: URL { repo.htmlUrl }
 
     init(repo: Repository) {
         self.repo = repo
+    }
+
+    // MARK: - Intent
+
+    func openWeb() {
+        UIApplication.shared.open(url, options: [:])
     }
 }

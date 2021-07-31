@@ -109,7 +109,7 @@ fileprivate extension RepositoryListViewController {
         let alertAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             self.dismiss(animated: true, completion: nil)
         }
-        alertController.view.accessibilityIdentifier = UID.UserDetail.alertView
+        alertController.view.accessibilityIdentifier = UID.RepositoryList.alertView
         alertController.addAction(alertAction)
     }
 }
@@ -140,6 +140,6 @@ extension RepositoryListViewController: UITableViewDataSource, UITableViewDelega
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellVM = vm.repositoryCellViewModels[indexPath.row]
-        // open webView
+        cellVM.openWeb()
     }
 }

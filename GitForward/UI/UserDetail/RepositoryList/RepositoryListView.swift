@@ -53,7 +53,7 @@ fileprivate extension RepositoryListView {
     func setupTableView() {
         addSubview(tableView)
         tableView.fillSuperview()
-        tableView.accessibilityIdentifier = UID.UserDetail.tableView
+        tableView.accessibilityIdentifier = UID.RepositoryList.tableView
         tableView.register(RepositoryCell.self, forCellReuseIdentifier: RepositoryCell.id)
         tableView.separatorColor = .none
     }

@@ -15,13 +15,13 @@ class UserListVCTests: XCTestCase {
     var sut: UserListViewController!
     var window: UIWindow!
     var navCon: UINavigationController!
-    var mockUserService: UserServiceMock!
+    var mockGitHubService: GitHubServiceMock!
     var mockImageService: ImageServiceMock!
 
     // MARK: - Test Lifecycle
     override func setUpWithError() throws {
         window = UIWindow()
-        mockUserService = UserServiceMock()
+        mockGitHubService = GitHubServiceMock()
         mockImageService = ImageServiceMock()
         setupSUT()
     }
@@ -29,7 +29,7 @@ class UserListVCTests: XCTestCase {
     override func tearDownWithError() throws {
         sut = nil
         mockImageService = nil
-        mockUserService = nil
+        mockGitHubService = nil
         navCon = nil
         window = nil
         super.tearDown()
@@ -38,7 +38,7 @@ class UserListVCTests: XCTestCase {
     // MARK: - Test Setup
 
     func setupSUT() {
-        sut = UserListViewController(viewModel: .init(userService: mockUserService,
+        sut = UserListViewController(viewModel: .init(userService: mockGitHubService,
                                           imageService: mockImageService))
 
         navCon = UINavigationController(rootViewController: sut)
@@ -87,15 +87,15 @@ class UserListVCTests: XCTestCase {
     }
 
     func test_viewModelBinding_callsUserService() throws {
-        XCTAssertEqual(mockUserService.callCount, 0)
+        XCTAssertEqual(mockGitHubService.callCount, 0)
 
         loadView()
 
-        XCTAssertEqual(mockUserService.callCount, 1)
+        XCTAssertEqual(mockGitHubService.callCount, 1)
 
         sut.vm.fetchUsers()
 
-        XCTAssertEqual(mockUserService.callCount, 2)
+        XCTAssertEqual(mockGitHubService.callCount, 2)
     }
 
     func test_viewModelBinding_updatesTableView() throws {
@@ -103,7 +103,7 @@ class UserListVCTests: XCTestCase {
 
         let loadExpectation = expectation(description: "load has finished")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertEqual(self.mockUserService.callCount, 1)
+            XCTAssertEqual(self.mockGitHubService.callCount, 1)
             XCTAssertEqual(self.sut.contentView.tableView.numberOfRows(inSection: 0), 1)
             loadExpectation.fulfill()
         }
@@ -112,7 +112,7 @@ class UserListVCTests: XCTestCase {
     }
 
     func test_userServiceError_changesState() throws {
-        mockUserService.responseType = .withError
+        mockGitHubService.responseType = .withError
 
         XCTAssertEqual(sut.vm.state.value, .idle)
 
@@ -124,7 +124,7 @@ class UserListVCTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             XCTAssertEqual(self.sut.vm.state.value, .error(ServiceError.decoding))
             loadExpectation.fulfill()
-            self.mockUserService.responseType = .normal
+            self.mockGitHubService.responseType = .normal
             self.sut.vm.fetchUsers()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 XCTAssertEqual(self.sut.vm.state.value, .idle)

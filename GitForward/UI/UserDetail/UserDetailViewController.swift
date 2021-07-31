@@ -7,11 +7,10 @@
 
 import UIKit
 
-import UIKit
-
 class UserDetailViewController: ViewController {
 
     // MARK: - Properties
+    private let user: User
     let userInfoViewController: UserInfoViewController
     let repositoryListViewController: RepositoryListViewController
 
@@ -21,6 +20,7 @@ class UserDetailViewController: ViewController {
 
     // MARK: - Initialization
     init(user: User) {
+        self.user = user
         userInfoViewController = UserInfoViewController(viewModel: .init(user: user))
         repositoryListViewController = RepositoryListViewController(viewModel: .init(user: user))
         super.init(nibName: nil, bundle: nil)
@@ -32,7 +32,6 @@ class UserDetailViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        setupSubViews()
         setupChildViewControllers()
     }
 }
@@ -41,17 +40,6 @@ class UserDetailViewController: ViewController {
 fileprivate extension UserDetailViewController {
 
     // MARK: - Setup
-
-    func setupSubViews() {
-        stackView.addArrangedSubview(userInfoViewController.view)
-        stackView.addArrangedSubview(repositoryListViewController.view)
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 0
-
-        view.addSubview(stackView)
-        stackView.fillSuperview()
-    }
 
     func setupChildViewControllers() {
         addChild(userInfoViewController)
@@ -62,4 +50,18 @@ fileprivate extension UserDetailViewController {
         userInfoViewController.didMove(toParent: self)
         repositoryListViewController.didMove(toParent: self)
     }
+
+    func setupSubViews() {
+        stackView.addArrangedSubview(userInfoViewController.view)
+        stackView.addArrangedSubview(repositoryListViewController.view)
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 0
+
+        view.addSubview(stackView)
+        stackView.fillSuperview()
+
+        navigationItem.title = user.login
+    }
+
 }

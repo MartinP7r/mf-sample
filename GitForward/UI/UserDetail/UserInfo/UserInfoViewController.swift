@@ -34,7 +34,6 @@ class UserInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         setupBinding()
 
         vm.fetchUserInfo()
@@ -43,21 +42,10 @@ class UserInfoViewController: UIViewController {
 
 fileprivate extension UserInfoViewController {
 
-    // MARK: - View Setup
-
-    func setupView() {
-        setupNavigationBar()
-    }
-
-    func setupNavigationBar() {
-//        navigationItem.title = vm.navBarTitle
-    }
-
     // MARK: - ViewModel Binding
 
     func setupBinding() {
         bindViewModel()
-//        bindView()
     }
 
     /// Bindings from the viewModel to the view
@@ -72,7 +60,7 @@ fileprivate extension UserInfoViewController {
                 self.contentView.finishLoading()
             }
         }
-        
+
         vm.userInfo.bind { [weak self] userInfo in
             guard let self = self else { return }
             self.contentView.configureWith(self.vm)
@@ -89,7 +77,7 @@ fileprivate extension UserInfoViewController {
         let alertAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             self.dismiss(animated: true, completion: nil)
         }
-        alertController.view.accessibilityIdentifier = UID.UserDetail.alertView
+        alertController.view.accessibilityIdentifier = UID.UserInfo.alertView
         alertController.addAction(alertAction)
     }
 }

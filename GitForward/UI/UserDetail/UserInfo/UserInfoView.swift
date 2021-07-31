@@ -72,9 +72,6 @@ fileprivate extension UserInfoView {
     }
 
     func setupLabels() {
-        [handleLabel, nameLabel, followersLabel, followingLabel].forEach { label in
-            //
-        }
         handleLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     }
