@@ -45,7 +45,7 @@ class UserInfoViewModel {
     }
 
     init(user: User,
-         gitHubService: GitHubService = .init(),
+         gitHubService: GitHubServiceProtocol = GitHubService(),
          imageService: ImageServiceProtocol = ImageService()) {
         self.user = user
         self.gitHubService = gitHubService

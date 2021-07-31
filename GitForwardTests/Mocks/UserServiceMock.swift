@@ -13,7 +13,7 @@ final class GitHubServiceMock: GitHubServiceProtocol {
         callCount += 1
         switch responseType {
         case .normal:
-            completion(.success([]))
+            completion(.success(repositoriesFixture))
         case .withError:
             completion(.failure(.decoding))
         }
@@ -29,7 +29,6 @@ final class GitHubServiceMock: GitHubServiceProtocol {
         }
     }
 
-
     var callCount = 0
     var responseType: ResponseType = .normal
 
@@ -38,6 +37,9 @@ final class GitHubServiceMock: GitHubServiceProtocol {
 
     let userInfoFixture = Bundle.init(for: GitHubServiceTests.self).decode(UserInfo.self,
                                                                            from: "userInfo.json")
+
+    let repositoriesFixture = Bundle.init(for: GitHubServiceTests.self).decode([Repository].self,
+                                                                               from: "repositories.json")
 
     enum ResponseType {
         case normal, withError

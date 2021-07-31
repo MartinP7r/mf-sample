@@ -21,7 +21,6 @@ extension UIView {
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 
-
     /// Sets the view's layout anchors, padding and size
     ///
     /// This **disables the view's** `translatesAutoresizingMaskIntoConstraints`

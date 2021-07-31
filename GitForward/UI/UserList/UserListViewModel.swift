@@ -18,14 +18,14 @@ class UserListViewModel {
         users.value.map { UserCellViewModel(user: $0, imageService: imageService) }
     }
 
-    private let userService: GitHubServiceProtocol
+    private let gitHubService: GitHubServiceProtocol
     private let imageService: ImageServiceProtocol
 
     // MARK: - Initialization
 
-    init(userService: GitHubServiceProtocol = GitHubService(),
+    init(gitHubService: GitHubServiceProtocol = GitHubService(),
          imageService: ImageServiceProtocol = ImageService()) {
-        self.userService = userService
+        self.gitHubService = gitHubService
         self.imageService = imageService
     }
 
@@ -34,7 +34,7 @@ class UserListViewModel {
     func fetchUsers() {
         state.value = .loading
 
-        userService
+        gitHubService
             .getUsers { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {

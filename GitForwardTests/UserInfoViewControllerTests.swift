@@ -1,5 +1,5 @@
 //
-//  UserListVCTests.swift
+//  UserListViewControllerTests.swift
 //  GitForwardTests
 //
 //  Created by Martin Pfundmair on 2021-07-23.
@@ -8,11 +8,11 @@
 import XCTest
 @testable import GitForward
 
-class UserListVCTests: XCTestCase {
+class UserInfoViewControllerTests: XCTestCase {
 
     // MARK: - Properties
 
-    var sut: UserListViewController!
+    var sut: UserInfoViewController!
     var window: UIWindow!
     var navCon: UINavigationController!
     var mockGitHubService: GitHubServiceMock!
@@ -38,7 +38,8 @@ class UserListVCTests: XCTestCase {
     // MARK: - Test Setup
 
     func setupSUT() {
-        sut = UserListViewController(viewModel: .init(userService: mockGitHubService,
+        sut = UserInfoViewController(viewModel: .init(user: mockGitHubService.userFixture,
+                                                      gitHubService: mockGitHubService,
                                           imageService: mockImageService))
 
         navCon = UINavigationController(rootViewController: sut)
@@ -60,30 +61,8 @@ class UserListVCTests: XCTestCase {
 
     func test_initWithCoder() throws {
         let archiver = NSKeyedArchiver(requiringSecureCoding: true)
-        let viewController = UserListViewController(coder: archiver)
+        let viewController = UserInfoViewController(coder: archiver)
         XCTAssertNil(viewController)
-    }
-
-    func test_tableView_isInViewHierarchy() throws {
-        loadView()
-
-        let tableView = sut.view.find(subViewWithIdentifier: UID.UserList.tableView)
-
-        XCTAssertNotNil(tableView)
-    }
-
-    func test_tableView_hasDelegateAndDataSource() throws {
-        loadView()
-
-        XCTAssertNotNil(sut.contentView.tableView.delegate)
-        XCTAssertNotNil(sut.contentView.tableView.dataSource)
-    }
-
-    func test_reloadButton_isInViewHierarchy() throws {
-        loadView()
-
-        let button = sut.navigationItem.rightBarButtonItem
-        XCTAssertEqual(button?.accessibilityIdentifier, UID.UserList.reloadButton)
     }
 
     func test_viewModelBinding_callsUserService() throws {
@@ -93,22 +72,9 @@ class UserListVCTests: XCTestCase {
 
         XCTAssertEqual(mockGitHubService.callCount, 1)
 
-        sut.vm.fetchUsers()
+        sut.vm.fetchUserInfo()
 
         XCTAssertEqual(mockGitHubService.callCount, 2)
-    }
-
-    func test_viewModelBinding_updatesTableView() throws {
-        loadView()
-
-        let loadExpectation = expectation(description: "load has finished")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertEqual(self.mockGitHubService.callCount, 1)
-            XCTAssertEqual(self.sut.contentView.tableView.numberOfRows(inSection: 0), 1)
-            loadExpectation.fulfill()
-        }
-
-        wait(for: [loadExpectation], timeout: 0.2)
     }
 
     func test_userServiceError_changesState() throws {
@@ -125,7 +91,7 @@ class UserListVCTests: XCTestCase {
             XCTAssertEqual(self.sut.vm.state.value, .error(ServiceError.decoding))
             loadExpectation.fulfill()
             self.mockGitHubService.responseType = .normal
-            self.sut.vm.fetchUsers()
+            self.sut.vm.fetchUserInfo()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 XCTAssertEqual(self.sut.vm.state.value, .idle)
                 fetchExpectation.fulfill()

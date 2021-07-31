@@ -27,9 +27,9 @@ class RepositoryListViewModel {
     // MARK: - Initialization
 
     init(user: User,
-         userService: GitHubServiceProtocol = GitHubService()) {
+         gitHubService: GitHubServiceProtocol = GitHubService()) {
         self.user = user
-        self.gitHubService = userService
+        self.gitHubService = gitHubService
     }
 
     // MARK: - Intents

@@ -24,11 +24,6 @@ class RepositoryListViewController: ViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    // TODO: move to other ViewController
-//    func setupChildViewController() {
-//        let child = UserInfoViewController(viewModel: .init(user: ))
-//    }
-
     required init?(coder aDecoder: NSCoder) { return nil }
 
     // MARK: - ViewController LifeCycle
@@ -42,7 +37,6 @@ class RepositoryListViewController: ViewController {
         setupView()
         setupBinding()
 
-//        vm.fetchUserInfo()
         vm.fetchRepositories()
     }
 }
@@ -69,7 +63,6 @@ fileprivate extension RepositoryListViewController {
 
     func setupBinding() {
         bindViewModel()
-//        bindView()
     }
 
     /// Bindings from the viewModel to the view
@@ -84,20 +77,11 @@ fileprivate extension RepositoryListViewController {
                 self.contentView.finishLoading()
             }
         }
-//        vm.users.bind { [weak self] _ in
-//            guard let self = self else { return }
-//            self.contentView.tableView.reloadSections([0], with: .automatic)
-//        }
+
         vm.repositories.bind { [weak self] _ in
             self?.contentView.tableView.reloadSections([0], with: .automatic)
         }
     }
-
-    /// Bindings from the view to the viewModel
-//    @objc func viewBinding() {
-//        vm.fetchUserDetail()
-//        vm.fetchUserRepositories()
-//    }
 
     // MARK: - Intents
 
