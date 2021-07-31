@@ -16,7 +16,7 @@ class UserDetailView: UIView {
 //    var userInfoView: UserInfoView!
 //
    lazy var tableView = UITableView(frame: .zero, style: .plain)
-   lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
+    lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
 
    // MARK: - Initialization
 
@@ -58,6 +58,7 @@ fileprivate extension UserDetailView {
        tableView.accessibilityIdentifier = UID.UserDetail.tableView
        tableView.register(RepositoryCell.self, forCellReuseIdentifier: RepositoryCell.id)
        tableView.separatorColor = .none
+//       tableView.tableHeaderView = 
    }
 
    func setupActivityIndicator() {

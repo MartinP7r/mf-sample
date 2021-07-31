@@ -15,3 +15,9 @@ struct Repository: Codable {
     let stargazersCount: Int
     let language: String?
 }
+
+extension Repository: Comparable {
+    static func < (lhs: Repository, rhs: Repository) -> Bool {
+        lhs.stargazersCount < rhs.stargazersCount
+    }
+}

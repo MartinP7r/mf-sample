@@ -56,7 +56,7 @@ fileprivate extension UserListViewController {
     }
 
     func setupNavigationBar() {
-        navigationItem.title = "GitHub DM"
+        navigationItem.title = "GitHub Users"
         refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh,
                                         target: self,
                                         action: #selector(UserListViewController.viewBinding))

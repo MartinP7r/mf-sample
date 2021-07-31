@@ -12,7 +12,23 @@ struct RepositoryCellViewModel {
     private let repo: Repository
 
     var name: String { repo.name }
-    var language: String { repo.language ?? "" }
+    var language: String {
+        guard let language = repo.language else { return "" }
+        let indicator: String
+        switch language {
+        case "Swift": indicator = "🟠"
+        case "Objective-C": indicator = "🔵"
+        case "Ruby": indicator = "🔴"
+        case "JavaScript": indicator = "🟡"
+        case "Python": indicator = "🔵"
+        case "HTML": indicator = "🔴"
+        case "Shell": indicator = "🟢"
+        case "CSS": indicator = "🟣"
+        default: indicator = "⚪️"
+        }
+
+        return "\(indicator) \(language)"
+    }
     var starsCount: String { "⭐️ \(repo.stargazersCount)" }
     var description: String { repo.description ?? "" }
 

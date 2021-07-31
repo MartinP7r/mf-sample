@@ -111,9 +111,14 @@ fileprivate extension UserDetailViewController {
 
 // MARK: - TableView
 extension UserDetailViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return vm.repositoryCellViewModels.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Repositories"
     }
 
     func tableView(_ tableView: UITableView,

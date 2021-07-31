@@ -57,7 +57,10 @@ fileprivate extension RepositoryCell {
         nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
 
         [starsLabel, languageLabel]
-            .forEach { $0.font = UIFont.preferredFont(forTextStyle: .subheadline) }
+            .forEach {
+                $0.font = UIFont.preferredFont(forTextStyle: .subheadline)
+                $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+            }
 
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
@@ -67,9 +70,10 @@ fileprivate extension RepositoryCell {
         let middleStack = UIStackView()
         middleStack.addArrangedSubview(starsLabel)
         middleStack.addArrangedSubview(languageLabel)
+        middleStack.addArrangedSubview(UIView())
         middleStack.axis = .horizontal
-        middleStack.distribution = .equalSpacing
-        middleStack.spacing = 3
+        middleStack.distribution = .fill
+        middleStack.spacing = 8
 
         baseStack.addArrangedSubview(nameLabel)
         baseStack.addArrangedSubview(middleStack)

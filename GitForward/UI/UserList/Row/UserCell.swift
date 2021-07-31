@@ -36,7 +36,9 @@ class UserCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView?.image = nil
+        if let imageView = imageView {
+            imageView.image = UIColor.gray.image(imageView.frame.size)
+        }
         imageRequest?.cancel()
         imageRequest = nil
     }
@@ -47,9 +49,9 @@ fileprivate extension UserCell {
     // MARK: - View Setup
 
     func setupView() {
+        if let imageView = imageView {
+            imageView.image = UIColor.gray.image(.init(width: 44, height: 44))
+        }
         accessoryType = .disclosureIndicator
-//        imageView?.image = UIImage(systemName: "person.fill",
-//                                   withConfiguration: UIImage.SymbolConfiguration(pointSize: 32, weight: .heavy))
-        imageView?.tintColor = .gray
     }
 }

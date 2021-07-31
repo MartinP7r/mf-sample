@@ -8,6 +8,7 @@
 import Foundation
 
 class UserDetailViewModel {
+
     // MARK: - Properties
 
     private let user: User
@@ -62,6 +63,8 @@ class UserDetailViewModel {
                     case .success(let repos):
                         self.state.value = .idle
                         self.repositories.value = repos
+                            .filter { !$0.fork }
+                            .sorted(by: >)
                     case .failure(let error):
                         self.state.value = .error(error)
                         print(error)
