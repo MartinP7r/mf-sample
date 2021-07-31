@@ -158,6 +158,16 @@
 			path = RepositoryList;
 			sourceTree = "<group>";
 		};
+		6E00223726B578D50006CDB5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				6E257BEB26B1246300A08291 /* AppDelegate.swift */,
+				6E257C3F26B1595900A08291 /* Box.swift */,
+				6E257C4A26B178C600A08291 /* Env.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		6E257BDF26B1246300A08291 = {
 			isa = PBXGroup;
 			children = (
@@ -179,9 +189,7 @@
 		6E257BEA26B1246300A08291 /* GitForward */ = {
 			isa = PBXGroup;
 			children = (
-				6E257BEB26B1246300A08291 /* AppDelegate.swift */,
-				6E257C3F26B1595900A08291 /* Box.swift */,
-				6E257C4A26B178C600A08291 /* Env.swift */,
+				6E00223726B578D50006CDB5 /* Shared */,
 				6E257C1D26B139A500A08291 /* UI */,
 				6E257C3426B13A1200A08291 /* Models */,
 				6E257C3726B13A3E00A08291 /* Networking */,
@@ -220,19 +228,11 @@
 		6E257C1D26B139A500A08291 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6E257C1E26B139A500A08291 /* Navigation */,
 				6E257C2026B139A500A08291 /* Shared */,
 				6E257C2326B139A500A08291 /* UserList */,
 				6E257C6826B36BE800A08291 /* UserDetail */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		6E257C1E26B139A500A08291 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		6E257C2026B139A500A08291 /* Shared */ = {
