@@ -1,29 +1,33 @@
 //
-//  UserListViewController.swift
+//  RepositoryListViewController.swift
 //  GitForward
 //
-//  Created by Martin Pfundmair on 2021-07-22.
+//  Created by Martin Pfundmair on 2021-07-30.
 //
 
 import UIKit
 
-class UserListViewController: ViewController {
+class RepositoryListViewController: ViewController {
 
     // MARK: - Properties
 
-    let vm: UserListViewModel
+    let vm: RepositoryListViewModel
 
     // MARK: - View Elements
-    var contentView: UserListView!
-    var refreshButton: UIBarButtonItem!
+    var contentView: RepositoryListView!
 
     // MARK: - Initialization
 
-    init(viewModel: UserListViewModel = .init(), view: UserListView = .init()) {
+    init(viewModel: RepositoryListViewModel, view: RepositoryListView = .init()) {
         self.contentView = view
         self.vm = viewModel
         super.init(nibName: nil, bundle: nil)
     }
+
+    // TODO: move to other ViewController
+//    func setupChildViewController() {
+//        let child = UserInfoViewController(viewModel: .init(user: ))
+//    }
 
     required init?(coder aDecoder: NSCoder) { return nil }
 
@@ -37,11 +41,13 @@ class UserListViewController: ViewController {
         super.viewDidLoad()
         setupView()
         setupBinding()
-        vm.fetchUsers()
+
+//        vm.fetchUserInfo()
+        vm.fetchRepositories()
     }
 }
 
-fileprivate extension UserListViewController {
+fileprivate extension RepositoryListViewController {
 
     // MARK: - View Setup
 
@@ -56,12 +62,7 @@ fileprivate extension UserListViewController {
     }
 
     func setupNavigationBar() {
-        navigationItem.title = "GitHub Users"
-        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh,
-                                        target: self,
-                                        action: #selector(UserListViewController.viewBinding))
-        refreshButton.accessibilityIdentifier = UID.UserList.reloadButton
-        navigationItem.rightBarButtonItem = refreshButton
+        navigationItem.title = vm.navBarTitle
     }
 
     // MARK: - ViewModel Binding
@@ -83,16 +84,20 @@ fileprivate extension UserListViewController {
                 self.contentView.finishLoading()
             }
         }
-        vm.users.bind { [weak self] _ in
-            guard let self = self else { return }
-            self.contentView.tableView.reloadSections([0], with: .automatic)
+//        vm.users.bind { [weak self] _ in
+//            guard let self = self else { return }
+//            self.contentView.tableView.reloadSections([0], with: .automatic)
+//        }
+        vm.repositories.bind { [weak self] _ in
+            self?.contentView.tableView.reloadSections([0], with: .automatic)
         }
     }
 
     /// Bindings from the view to the viewModel
-    @objc func viewBinding() {
-        vm.fetchUsers()
-    }
+//    @objc func viewBinding() {
+//        vm.fetchUserDetail()
+//        vm.fetchUserRepositories()
+//    }
 
     // MARK: - Intents
 
@@ -104,33 +109,37 @@ fileprivate extension UserListViewController {
         let alertAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
             self.dismiss(animated: true, completion: nil)
         }
-        alertController.view.accessibilityIdentifier = UID.UserList.alertView
+        alertController.view.accessibilityIdentifier = UID.UserDetail.alertView
         alertController.addAction(alertAction)
     }
 }
 
 // MARK: - TableView
-extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
+extension RepositoryListViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return vm.users.value.count
+        return vm.repositoryCellViewModels.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Repositories"
     }
 
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: UserCell = tableView
-                .dequeueReusableCell(withIdentifier: UserCell.id,
-                                     for: indexPath) as? UserCell else { return UITableViewCell() }
 
-        let cellVM = vm.userCellVMs[indexPath.row]
+        guard let cell: RepositoryCell = tableView
+                .dequeueReusableCell(withIdentifier: RepositoryCell.id,
+                                     for: indexPath) as? RepositoryCell else { return UITableViewCell() }
+
+        let cellVM = vm.repositoryCellViewModels[indexPath.row]
         cell.configureWith(viewModel: cellVM)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellVM = vm.userCellVMs[indexPath.row]
-//        let detailVC = RepositoryListViewController(viewModel: RepositoryListViewModel(user: cellVM.user))
-        let detailVC = UserDetailViewController(user: cellVM.user)
-        navigationController?.pushViewController(detailVC, animated: true)
+        let cellVM = vm.repositoryCellViewModels[indexPath.row]
+        // open webView
     }
 }

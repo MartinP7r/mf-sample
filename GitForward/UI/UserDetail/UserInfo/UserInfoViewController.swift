@@ -62,16 +62,21 @@ fileprivate extension UserInfoViewController {
 
     /// Bindings from the viewModel to the view
     func bindViewModel() {
-//        vm.state.bind { [weak self] state in
-//            guard let self = self else { return }
-//            switch state {
-//            case .idle: self.contentView.finishLoading()
-//            case .loading: self.contentView.startLoading()
-//            case .error(let error):
-//                self.showError(error)
-//                self.contentView.finishLoading()
-//            }
-//        }
+        vm.state.bind { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .idle: self.contentView.finishLoading()
+            case .loading: self.contentView.startLoading()
+            case .error(let error):
+                self.showError(error)
+                self.contentView.finishLoading()
+            }
+        }
+        
+        vm.userInfo.bind { [weak self] userInfo in
+            guard let self = self else { return }
+            self.contentView.configureWith(self.vm)
+        }
     }
 
     // MARK: - Intents

@@ -2,144 +2,64 @@
 //  UserDetailViewController.swift
 //  GitForward
 //
-//  Created by Martin Pfundmair on 2021-07-30.
+//  Created by Martin Pfundmair on 2021-07-31.
 //
+
+import UIKit
 
 import UIKit
 
 class UserDetailViewController: ViewController {
 
     // MARK: - Properties
-
-    let vm: UserDetailViewModel
+    let userInfoViewController: UserInfoViewController
+    let repositoryListViewController: RepositoryListViewController
 
     // MARK: - View Elements
-    var contentView: UserDetailView!
+
+    lazy var stackView = UIStackView()
 
     // MARK: - Initialization
-
-    init(viewModel: UserDetailViewModel, view: UserDetailView = .init()) {
-        self.contentView = view
-        self.vm = viewModel
+    init(user: User) {
+        userInfoViewController = UserInfoViewController(viewModel: .init(user: user))
+        repositoryListViewController = RepositoryListViewController(viewModel: .init(user: user))
         super.init(nibName: nil, bundle: nil)
     }
-
-    // TODO: move to other ViewController
-//    func setupChildViewController() {
-//        let child = UserInfoViewController(viewModel: .init(user: ))
-//    }
 
     required init?(coder aDecoder: NSCoder) { return nil }
 
     // MARK: - ViewController LifeCycle
-
-    override func loadView() {
-        view = contentView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupBinding()
 
-//        vm.fetchUserInfo()
-        vm.fetchRepositories()
+//        setupSubViews()
+        setupChildViewControllers()
     }
 }
 
+// MARK: - Private Methods
 fileprivate extension UserDetailViewController {
 
-    // MARK: - View Setup
+    // MARK: - Setup
 
-    func setupView() {
-        setupTableView()
-        setupNavigationBar()
+    func setupSubViews() {
+        stackView.addArrangedSubview(userInfoViewController.view)
+        stackView.addArrangedSubview(repositoryListViewController.view)
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 0
+
+        view.addSubview(stackView)
+        stackView.fillSuperview()
     }
 
-    func setupTableView() {
-        contentView.tableView.delegate = self
-        contentView.tableView.dataSource = self
-    }
+    func setupChildViewControllers() {
+        addChild(userInfoViewController)
+        addChild(repositoryListViewController)
 
-    func setupNavigationBar() {
-        navigationItem.title = vm.navBarTitle
-    }
+        setupSubViews()
 
-    // MARK: - ViewModel Binding
-
-    func setupBinding() {
-        bindViewModel()
-//        bindView()
-    }
-
-    /// Bindings from the viewModel to the view
-    func bindViewModel() {
-        vm.state.bind { [weak self] state in
-            guard let self = self else { return }
-            switch state {
-            case .idle: self.contentView.finishLoading()
-            case .loading: self.contentView.startLoading()
-            case .error(let error):
-                self.showError(error)
-                self.contentView.finishLoading()
-            }
-        }
-//        vm.users.bind { [weak self] _ in
-//            guard let self = self else { return }
-//            self.contentView.tableView.reloadSections([0], with: .automatic)
-//        }
-        vm.repositories.bind { [weak self] _ in
-            self?.contentView.tableView.reloadSections([0], with: .automatic)
-        }
-    }
-
-    /// Bindings from the view to the viewModel
-//    @objc func viewBinding() {
-//        vm.fetchUserDetail()
-//        vm.fetchUserRepositories()
-//    }
-
-    // MARK: - Intents
-
-    private func showError(_ error: Error) {
-        let alertController = UIAlertController(title: "Error",
-                                                message: error.localizedDescription,
-                                                preferredStyle: .alert)
-
-        let alertAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alertController.view.accessibilityIdentifier = UID.UserDetail.alertView
-        alertController.addAction(alertAction)
-    }
-}
-
-// MARK: - TableView
-extension UserDetailViewController: UITableViewDataSource, UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
-        return vm.repositoryCellViewModels.count
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Repositories"
-    }
-
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell: RepositoryCell = tableView
-                .dequeueReusableCell(withIdentifier: RepositoryCell.id,
-                                     for: indexPath) as? RepositoryCell else { return UITableViewCell() }
-
-        let cellVM = vm.repositoryCellViewModels[indexPath.row]
-        cell.configureWith(viewModel: cellVM)
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cellVM = vm.repositoryCellViewModels[indexPath.row]
-        // open webView
+        userInfoViewController.didMove(toParent: self)
+        repositoryListViewController.didMove(toParent: self)
     }
 }

@@ -80,7 +80,11 @@ fileprivate extension UserInfoView {
     }
 
     func setupAvatarView() {
-
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor, multiplier: 1).isActive = true
+        avatarView.heightAnchor.constraint(equalToConstant: 88).isActive = true
+        avatarView.layer.cornerRadius = 8
+        avatarView.clipsToBounds = true
     }
 
     func setupActivityIndicator() {
@@ -89,33 +93,31 @@ fileprivate extension UserInfoView {
     }
 
     func composeViews() {
-        let nameStack = UIStackView()
-        nameStack.addArrangedSubview(nameLabel)
-        nameStack.addArrangedSubview(handleLabel)
-        nameStack.axis = .vertical
-        nameStack.distribution = .fill
-        nameStack.spacing = 3
-
-        let topStack = UIStackView()
-        topStack.addArrangedSubview(avatarView)
-        topStack.addArrangedSubview(nameStack)
-        topStack.axis = .horizontal
-        topStack.distribution = .fillProportionally
-        topStack.spacing = 3
-
         let followStack = UIStackView()
         followStack.addArrangedSubview(followersLabel)
         followStack.addArrangedSubview(followingLabel)
         followStack.axis = .horizontal
         followStack.distribution = .fillEqually
-        followStack.spacing = 3
+        followStack.spacing = 8
 
-        baseStack.addArrangedSubview(topStack)
-        baseStack.addArrangedSubview(followStack)
-        baseStack.axis = .vertical
+        let spacer = UIView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .vertical)
+        let nameStack = UIStackView()
+        nameStack.addArrangedSubview(nameLabel)
+        nameStack.addArrangedSubview(handleLabel)
+        nameStack.addArrangedSubview(spacer)
+        nameStack.addArrangedSubview(followStack)
+        nameStack.axis = .vertical
+        nameStack.distribution = .fill
+        nameStack.spacing = 8
+
+        baseStack.addArrangedSubview(avatarView)
+        baseStack.addArrangedSubview(nameStack)
+        baseStack.axis = .horizontal
         baseStack.distribution = .fill
+        baseStack.spacing = 8
 
         addSubview(baseStack)
-        baseStack.fillSuperview()
+        baseStack.fillSuperview(padding: .init(onAllSides: 8))
     }
 }

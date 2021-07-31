@@ -1,5 +1,5 @@
 //
-//  UserDetailView.swift
+//  RepositoryListView.swift
 //  GitForward
 //
 //  Created by Martin Pfundmair on 2021-07-30.
@@ -7,13 +7,11 @@
 
 import UIKit
 
-class UserDetailView: UIView {
+class RepositoryListView: UIView {
 
     // MARK: - Properties
 
     // MARK: - View Elements
-
-//    var userInfoView: UserInfoView!
 
     lazy var tableView = UITableView(frame: .zero, style: .plain)
     lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
@@ -43,7 +41,7 @@ class UserDetailView: UIView {
 
 // MARK: - Private Methods
 
-fileprivate extension UserDetailView {
+fileprivate extension RepositoryListView {
 
     // MARK: - View Setup
 
