@@ -37,7 +37,8 @@ class UserDetailViewController: ViewController {
         setupView()
         setupBinding()
 
-        vm.fetchUserInfo()
+//        vm.fetchUserInfo()
+        vm.fetchRepositories()
     }
 }
 
@@ -46,14 +47,14 @@ fileprivate extension UserDetailViewController {
     // MARK: - View Setup
 
     func setupView() {
-//        setupTableView()
+        setupTableView()
         setupNavigationBar()
     }
 
-//    func setupTableView() {
-//        contentView.tableView.delegate = self
-//        contentView.tableView.dataSource = self
-//    }
+    func setupTableView() {
+        contentView.tableView.delegate = self
+        contentView.tableView.dataSource = self
+    }
 
     func setupNavigationBar() {
         navigationItem.title = vm.navBarTitle
@@ -68,22 +69,22 @@ fileprivate extension UserDetailViewController {
 
     /// Bindings from the viewModel to the view
     func bindViewModel() {
-//        vm.state.bind { [weak self] state in
-//            guard let self = self else { return }
-//            switch state {
-//            case .idle: self.contentView.finishLoading()
-//            case .loading: self.contentView.startLoading()
-//            case .error(let error):
-//                self.showError(error)
-//                self.contentView.finishLoading()
-//            }
-//        }
+        vm.state.bind { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .idle: self.contentView.finishLoading()
+            case .loading: self.contentView.startLoading()
+            case .error(let error):
+                self.showError(error)
+                self.contentView.finishLoading()
+            }
+        }
 //        vm.users.bind { [weak self] _ in
 //            guard let self = self else { return }
 //            self.contentView.tableView.reloadSections([0], with: .automatic)
 //        }
-        vm.userInfo.bind { [weak self] userInfo in
-            
+        vm.repositories.bind { [weak self] _ in
+            self?.contentView.tableView.reloadSections([0], with: .automatic)
         }
     }
 
@@ -117,9 +118,11 @@ extension UserDetailViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let cell: RepositoryCell = tableView
                 .dequeueReusableCell(withIdentifier: RepositoryCell.id,
                                      for: indexPath) as? RepositoryCell else { return UITableViewCell() }
+
         let cellVM = vm.repositoryCellViewModels[indexPath.row]
         cell.configureWith(viewModel: cellVM)
         return cell

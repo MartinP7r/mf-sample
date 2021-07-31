@@ -12,9 +12,9 @@ struct RepositoryCellViewModel {
     private let repo: Repository
 
     var name: String { repo.name }
-    var language: String { repo.language }
+    var language: String { repo.language ?? "" }
     var starsCount: String { "⭐️ \(repo.stargazersCount)" }
-    var description: String { repo.description }
+    var description: String { repo.description ?? "" }
 
     init(repo: Repository) {
         self.repo = repo

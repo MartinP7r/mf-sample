@@ -8,7 +8,7 @@ import UIKit
 
 extension UIView {
 
-    func fillSuperview(padding: UIEdgeInsets) {
+    func fillSuperview(padding: UIEdgeInsets = .zero) {
         anchor(top: superview?.safeTopAnchor,
                leading: superview?.safeLeadingAnchor,
                bottom: superview?.safeBottomAnchor,
@@ -16,15 +16,15 @@ extension UIView {
                padding: padding)
     }
 
-    func fillSuperview() {
-        fillSuperview(padding: .zero)
-    }
-
     func anchorSize(to view: UIView) {
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
 
+
+    /// Sets the view's layout anchors, padding and size
+    ///
+    /// This **disables the view's** `translatesAutoresizingMaskIntoConstraints`
     func anchor(top: NSLayoutYAxisAnchor?,
                 leading: NSLayoutXAxisAnchor?,
                 bottom: NSLayoutYAxisAnchor?,

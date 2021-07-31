@@ -54,7 +54,13 @@ fileprivate extension RepositoryCell {
     }
 
     func setupLabels() {
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+
+        [starsLabel, languageLabel]
+            .forEach { $0.font = UIFont.preferredFont(forTextStyle: .subheadline) }
+
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
     }
 
     func composeViews() {
@@ -62,16 +68,18 @@ fileprivate extension RepositoryCell {
         middleStack.addArrangedSubview(starsLabel)
         middleStack.addArrangedSubview(languageLabel)
         middleStack.axis = .horizontal
-        middleStack.distribution = .fill
+        middleStack.distribution = .equalSpacing
         middleStack.spacing = 3
 
         baseStack.addArrangedSubview(nameLabel)
         baseStack.addArrangedSubview(middleStack)
         baseStack.addArrangedSubview(descriptionLabel)
         baseStack.axis = .vertical
+        baseStack.spacing = 8
         baseStack.distribution = .fill
 
-        addSubview(baseStack)
-        baseStack.fillSuperview()
+        contentView.addSubview(baseStack)
+
+        baseStack.fillSuperview(padding: .init(onAllSides: 8))
     }
 }

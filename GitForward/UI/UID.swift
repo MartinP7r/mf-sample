@@ -16,6 +16,7 @@ enum UID {
     }
 
     enum UserDetail {
+        static var tableView = "userlist-tableView"
         static var alertView = "userDetail-alertView"
     }
 }

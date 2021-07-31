@@ -13,10 +13,10 @@ class UserDetailView: UIView {
 
    // MARK: - View Elements
 
-    var userInfoView: UserInfoView!
+//    var userInfoView: UserInfoView!
 //
-//   lazy var tableView = UITableView(frame: .zero, style: .plain)
-//   lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
+   lazy var tableView = UITableView(frame: .zero, style: .plain)
+   lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
 
    // MARK: - Initialization
 
@@ -29,16 +29,16 @@ class UserDetailView: UIView {
 
    // MARK: - Actions
 
-//   func startLoading() {
-//       tableView.isUserInteractionEnabled = false
-//       activityIndicator.isHidden = false
-//       activityIndicator.startAnimating()
-//   }
-//
-//   func finishLoading() {
-//       tableView.isUserInteractionEnabled = true
-//       activityIndicator.stopAnimating()
-//   }
+   func startLoading() {
+       tableView.isUserInteractionEnabled = false
+       activityIndicator.isHidden = false
+       activityIndicator.startAnimating()
+   }
+
+   func finishLoading() {
+       tableView.isUserInteractionEnabled = true
+       activityIndicator.stopAnimating()
+   }
 }
 
 // MARK: - Private Methods
@@ -48,21 +48,21 @@ fileprivate extension UserDetailView {
    // MARK: - View Setup
 
    func setupView() {
-//       setupTableView()
-//       setupActivityIndicator()
+       setupTableView()
+       setupActivityIndicator()
    }
 
-//   func setupTableView() {
-//       addSubview(tableView)
-//       tableView.fillSuperview()
-//       tableView.accessibilityIdentifier = UID.UserList.tableView
-//       tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.id)
-//       tableView.separatorColor = .none
-//   }
-//
-//   func setupActivityIndicator() {
-//       addSubview(activityIndicator)
-//       activityIndicator.centerInSuperview()
-//   }
+   func setupTableView() {
+       addSubview(tableView)
+       tableView.fillSuperview()
+       tableView.accessibilityIdentifier = UID.UserDetail.tableView
+       tableView.register(RepositoryCell.self, forCellReuseIdentifier: RepositoryCell.id)
+       tableView.separatorColor = .none
+   }
+
+   func setupActivityIndicator() {
+       addSubview(activityIndicator)
+       activityIndicator.centerInSuperview()
+   }
 
 }

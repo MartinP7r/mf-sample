@@ -12,7 +12,7 @@ class UserListViewModel {
     // MARK: - Properties
 
     private(set) var users = Box([User]())
-    private(set) var state: Box<State> = Box(.idle)
+    private(set) var state: Box<ViewState> = Box(.idle)
 
     var userCellVMs: [UserCellViewModel] {
         users.value.map { UserCellViewModel(user: $0, imageService: imageService) }
@@ -47,22 +47,5 @@ class UserListViewModel {
                     }
                 }
             }
-    }
-}
-
-extension UserListViewModel {
-    enum State: Equatable { case
-        idle,
-        loading,
-        error(Error)
-
-        static func == (lhs: UserListViewModel.State, rhs: UserListViewModel.State) -> Bool {
-            switch (lhs, rhs) {
-            case (.idle, .idle): return true
-            case (.loading, .loading): return true
-            case (.error, .error): return true // status is considered equal even if the associated errors are not
-            default: return false
-            }
-        }
     }
 }

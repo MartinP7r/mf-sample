@@ -13,7 +13,7 @@ class UserDetailViewModel {
     private let user: User
     private(set) var userInfo: Box<UserInfo?> = Box(nil)
     private(set) var repositories: Box<[Repository]> = Box([])
-//    private(set) var state: Box<State> = Box(.idle)
+    private(set) var state: Box<ViewState> = Box(.idle)
 
     var navBarTitle: String { "@\(user.login)"}
 
@@ -34,7 +34,7 @@ class UserDetailViewModel {
     // MARK: - Intents
 
     func fetchUserInfo() {
-//        state.value = .loading
+        state.value = .loading
 
         userService
             .getUserInfo(user: user) { [weak self] result in
@@ -42,17 +42,31 @@ class UserDetailViewModel {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let userInfo):
- //                        self.state.value = .idle
+                        self.state.value = .idle
                         self.userInfo.value = userInfo
-                        print(self.userInfo.value)
-                    case .failure(let error): break
-//                        self.state.value = .error(error)
+                    case .failure(let error):
+                        self.state.value = .error(error)
                     }
                 }
             }
     }
 
     func fetchRepositories() {
+        state.value = .loading
 
+        userService
+            .getUserRepos(user: user) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let repos):
+                        self.state.value = .idle
+                        self.repositories.value = repos
+                    case .failure(let error):
+                        self.state.value = .error(error)
+                        print(error)
+                    }
+                }
+            }
     }
 }

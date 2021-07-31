@@ -61,7 +61,6 @@ final class UserService: UserServiceProtocol {
         fetch(request: request(.repositories(login: user.login)), completion: completion)
     }
 
-
     private func request(_ endpoint: Endpoint) -> URLRequest {
         var url = URL(staticString: "https://api.github.com/users")
 
@@ -69,12 +68,10 @@ final class UserService: UserServiceProtocol {
         case .users: break
         case .userInfo(let login):
             url.appendPathComponent(login)
-            print("URL", url.absoluteString)
         case .repositories(let login):
             url = url
                 .appendingPathComponent(login)
                 .appendingPathComponent("repos")
-            print("URL", url.absoluteString)
         }
 
         var urlRequest = URLRequest(url: url)
@@ -99,11 +96,13 @@ final class UserService: UserServiceProtocol {
 
                 let decoder = JSONDecoder.snakeCase
 
-                guard let users = try? decoder.decode(M.self, from: data) else {
+                do {
+                    let decodedData = try decoder.decode(M.self, from: data)
+                    return completion(.success(decodedData))
+                } catch {
+                    print(error)
                     return completion(.failure(.decoding))
                 }
-
-                return completion(.success(users))
             }.resume()
     }
 }
