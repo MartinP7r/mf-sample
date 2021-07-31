@@ -22,40 +22,22 @@ class UserDetailViewModel {
         repositories.value.map { RepositoryCellViewModel(repo: $0) }
     }
 
-    private let userService: UserServiceProtocol
+    private let gitHubService: GitHubServiceProtocol
 
     // MARK: - Initialization
 
     init(user: User,
-         userService: UserServiceProtocol = UserService()) {
+         userService: GitHubServiceProtocol = GitHubService()) {
         self.user = user
-        self.userService = userService
+        self.gitHubService = userService
     }
 
     // MARK: - Intents
 
-    func fetchUserInfo() {
-        state.value = .loading
-
-        userService
-            .getUserInfo(user: user) { [weak self] result in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let userInfo):
-                        self.state.value = .idle
-                        self.userInfo.value = userInfo
-                    case .failure(let error):
-                        self.state.value = .error(error)
-                    }
-                }
-            }
-    }
-
     func fetchRepositories() {
         state.value = .loading
 
-        userService
+        gitHubService
             .getUserRepos(user: user) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {

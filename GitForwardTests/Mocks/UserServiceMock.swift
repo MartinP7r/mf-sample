@@ -8,7 +8,7 @@ import Combine
 import Foundation
 @testable import GitForward
 
-final class UserServiceMock: UserServiceProtocol {
+final class UserServiceMock: GitHubServiceProtocol {
 
     var callCount = 0
     var responseType: ResponseType = .normal

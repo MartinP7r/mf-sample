@@ -18,12 +18,12 @@ class UserListViewModel {
         users.value.map { UserCellViewModel(user: $0, imageService: imageService) }
     }
 
-    private let userService: UserServiceProtocol
+    private let userService: GitHubServiceProtocol
     private let imageService: ImageServiceProtocol
 
     // MARK: - Initialization
 
-    init(userService: UserServiceProtocol = UserService(),
+    init(userService: GitHubServiceProtocol = GitHubService(),
          imageService: ImageServiceProtocol = ImageService()) {
         self.userService = userService
         self.imageService = imageService

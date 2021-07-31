@@ -11,7 +11,6 @@ class UserInfoView: UIView {
 
     // MARK: - Properties
 
-    private let vm: UserInfoViewModel
     private var imageRequest: Cancellable?
 
     // MARK: - View Elements
@@ -23,12 +22,11 @@ class UserInfoView: UIView {
     lazy var followersLabel = UILabel()
     lazy var followingLabel = UILabel()
 
-    //   lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
+    lazy var activityIndicator = ActivityIndicatorView(style: .whiteLarge)
 
     // MARK: - Initialization
 
-    init(viewModel: UserInfoViewModel) {
-        self.vm = viewModel
+    init() {
         super.init(frame: .zero)
         setupView()
     }
@@ -37,16 +35,27 @@ class UserInfoView: UIView {
 
     // MARK: - Actions
 
-    //   func startLoading() {
-    //       tableView.isUserInteractionEnabled = false
-    //       activityIndicator.isHidden = false
-    //       activityIndicator.startAnimating()
-    //   }
-    //
-    //   func finishLoading() {
-    //       tableView.isUserInteractionEnabled = true
-    //       activityIndicator.stopAnimating()
-    //   }
+    func startLoading() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+
+    func finishLoading() {
+        activityIndicator.stopAnimating()
+    }
+
+    func configureWith(_ vm: UserInfoViewModel) {
+
+        handleLabel.text = vm.handle
+        nameLabel.text = vm.name
+        followersLabel.text = vm.followersCount
+        followingLabel.text = vm.followingCount
+
+        imageRequest = vm.avatarImage { [weak self] image in
+            self?.avatarView.image = image
+            self?.setNeedsLayout()
+        }
+    }
 }
 
 // MARK: - Private Methods
@@ -58,8 +67,7 @@ fileprivate extension UserInfoView {
     func setupView() {
         setupLabels()
         setupAvatarView()
-        //       setupTableView()
-        //       setupActivityIndicator()
+        setupActivityIndicator()
         composeViews()
     }
 
@@ -67,17 +75,17 @@ fileprivate extension UserInfoView {
         [handleLabel, nameLabel, followersLabel, followingLabel].forEach { label in
             //
         }
-        handleLabel.text = vm.handle
-        nameLabel.text = vm.name
-        followersLabel.text = vm.followersCount
-        followingLabel.text = vm.followingCount
+        handleLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
     }
 
     func setupAvatarView() {
-        imageRequest = vm.avatarImage { [weak self] image in
-            self?.avatarView.image = image
-            self?.setNeedsLayout()
-        }
+
+    }
+
+    func setupActivityIndicator() {
+        addSubview(activityIndicator)
+        activityIndicator.centerInSuperview()
     }
 
     func composeViews() {

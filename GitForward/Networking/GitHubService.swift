@@ -1,5 +1,5 @@
 //
-//  UserService.swift
+//  GitHubService.swift
 //  GitForward
 //
 //  Created by Martin Pfundmair on 2021-07-23.
@@ -24,14 +24,13 @@ extension ServiceError: LocalizedError {
     }
 }
 
-protocol UserServiceProtocol {
+protocol GitHubServiceProtocol {
     func getUsers(completion: @escaping (_ result: Result<[User], ServiceError>) -> Void)
     func getUserRepos(user: User, completion: @escaping (_ result: Result<[Repository], ServiceError>) -> Void)
     func getUserInfo(user: User, completion: @escaping (_ result: Result<UserInfo, ServiceError>) -> Void)
 }
 
-// TODO: rename to GitHubService
-final class UserService: UserServiceProtocol {
+final class GitHubService: GitHubServiceProtocol {
 
     private let session: URLSession
     private let decoder: JSONDecoder

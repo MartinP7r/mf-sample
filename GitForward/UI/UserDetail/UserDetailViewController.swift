@@ -24,6 +24,11 @@ class UserDetailViewController: ViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    // TODO: move to other ViewController
+//    func setupChildViewController() {
+//        let child = UserInfoViewController(viewModel: .init(user: ))
+//    }
+
     required init?(coder aDecoder: NSCoder) { return nil }
 
     // MARK: - ViewController LifeCycle

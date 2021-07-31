@@ -13,7 +13,7 @@ class UserServiceTests: XCTestCase {
 
     // MARK: - Properties
 
-    var sut: UserService!
+    var sut: GitHubService!
     var subscriptions = Set<AnyCancellable>()
     let testBundle = Bundle(for: UserServiceTests.self)
 
@@ -34,7 +34,7 @@ class UserServiceTests: XCTestCase {
         let url = URL(staticString: "https://api.github.com/users")
         let data = try Data(contentsOf: testBundle.url(forResource: "users.json", withExtension: nil)!)
         URLProtocolMock.testURLs = [url: data]
-        sut = UserService(session: URLProtocolMock.session())
+        sut = GitHubService(session: URLProtocolMock.session())
     }
 
     func test_get_fetchesUserData() throws {
