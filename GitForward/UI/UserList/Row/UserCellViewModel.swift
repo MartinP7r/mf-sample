@@ -1,5 +1,5 @@
 //
-//  UserCellVM.swift
+//  UserCellViewModel.swift
 //  GitForward
 //
 //  Created by Martin Pfundmair on 2021-07-23.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit.UIImage
 
-class UserCellVM {
+class UserCellViewModel {
 
     let user: User
     private let imageService: ImageServiceProtocol

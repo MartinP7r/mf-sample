@@ -25,7 +25,7 @@ class UserCell: UITableViewCell {
 
     // MARK: - Configuration
 
-    func configureWith(viewModel: UserCellVM) {
+    func configureWith(viewModel: UserCellViewModel) {
         self.textLabel?.text = viewModel.userHandle
 
         imageRequest = viewModel.avatarImage { [weak self] image in

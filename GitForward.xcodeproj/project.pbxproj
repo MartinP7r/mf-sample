@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E00221826B42E9A0006CDB5 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00221726B42E9A0006CDB5 /* UserInfoView.swift */; };
+		6E00221A26B430700006CDB5 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00221926B430700006CDB5 /* UserInfoViewModel.swift */; };
+		6E00221C26B4D0EF0006CDB5 /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00221B26B4D0EF0006CDB5 /* RepositoryCell.swift */; };
 		6E257BEC26B1246300A08291 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257BEB26B1246300A08291 /* AppDelegate.swift */; };
 		6E257BF526B1246800A08291 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E257BF426B1246800A08291 /* Assets.xcassets */; };
 		6E257BF826B1246800A08291 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E257BF626B1246800A08291 /* LaunchScreen.storyboard */; };
@@ -14,7 +17,7 @@
 		6E257C2D26B139A500A08291 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2226B139A500A08291 /* ActivityIndicatorView.swift */; };
 		6E257C2E26B139A500A08291 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2426B139A500A08291 /* UserListView.swift */; };
 		6E257C2F26B139A500A08291 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2526B139A500A08291 /* UserListViewController.swift */; };
-		6E257C3026B139A500A08291 /* UserCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2726B139A500A08291 /* UserCellVM.swift */; };
+		6E257C3026B139A500A08291 /* UserCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2726B139A500A08291 /* UserCellViewModel.swift */; };
 		6E257C3126B139A500A08291 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2826B139A500A08291 /* UserCell.swift */; };
 		6E257C3226B139A500A08291 /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2926B139A500A08291 /* UserListViewModel.swift */; };
 		6E257C3326B139A500A08291 /* UID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C2A26B139A500A08291 /* UID.swift */; };
@@ -41,6 +44,7 @@
 		6E257C6A26B36C0500A08291 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C6926B36C0500A08291 /* UserDetailViewModel.swift */; };
 		6E257C6C26B36C2600A08291 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C6B26B36C2600A08291 /* UserDetailViewController.swift */; };
 		6E257C6E26B36C3800A08291 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C6D26B36C3800A08291 /* UserDetailView.swift */; };
+		6E257C7126B3F51600A08291 /* RepositoryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E257C7026B3F51600A08291 /* RepositoryCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +58,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E00221726B42E9A0006CDB5 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		6E00221926B430700006CDB5 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
+		6E00221B26B4D0EF0006CDB5 /* RepositoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		6E257BE826B1246300A08291 /* GitForward.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitForward.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E257BEB26B1246300A08291 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E257BF426B1246800A08291 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +72,7 @@
 		6E257C2226B139A500A08291 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		6E257C2426B139A500A08291 /* UserListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		6E257C2526B139A500A08291 /* UserListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
-		6E257C2726B139A500A08291 /* UserCellVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCellVM.swift; sourceTree = "<group>"; };
+		6E257C2726B139A500A08291 /* UserCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCellViewModel.swift; sourceTree = "<group>"; };
 		6E257C2826B139A500A08291 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		6E257C2926B139A500A08291 /* UserListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		6E257C2A26B139A500A08291 /* UID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UID.swift; sourceTree = "<group>"; };
@@ -93,6 +100,7 @@
 		6E257C6926B36C0500A08291 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		6E257C6B26B36C2600A08291 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		6E257C6D26B36C3800A08291 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		6E257C7026B3F51600A08291 /* RepositoryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,9 +209,9 @@
 		6E257C2326B139A500A08291 /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				6E257C2526B139A500A08291 /* UserListViewController.swift */,
 				6E257C2926B139A500A08291 /* UserListViewModel.swift */,
 				6E257C2426B139A500A08291 /* UserListView.swift */,
-				6E257C2526B139A500A08291 /* UserListViewController.swift */,
 				6E257C2626B139A500A08291 /* Row */,
 			);
 			path = UserList;
@@ -212,7 +220,7 @@
 		6E257C2626B139A500A08291 /* Row */ = {
 			isa = PBXGroup;
 			children = (
-				6E257C2726B139A500A08291 /* UserCellVM.swift */,
+				6E257C2726B139A500A08291 /* UserCellViewModel.swift */,
 				6E257C2826B139A500A08291 /* UserCell.swift */,
 			);
 			path = Row;
@@ -279,11 +287,23 @@
 		6E257C6826B36BE800A08291 /* UserDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6E00221926B430700006CDB5 /* UserInfoViewModel.swift */,
+				6E00221726B42E9A0006CDB5 /* UserInfoView.swift */,
+				6E257C6F26B3F50900A08291 /* Row */,
 				6E257C6B26B36C2600A08291 /* UserDetailViewController.swift */,
 				6E257C6926B36C0500A08291 /* UserDetailViewModel.swift */,
 				6E257C6D26B36C3800A08291 /* UserDetailView.swift */,
 			);
 			path = UserDetail;
+			sourceTree = "<group>";
+		};
+		6E257C6F26B3F50900A08291 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				6E257C7026B3F51600A08291 /* RepositoryCellViewModel.swift */,
+				6E00221B26B4D0EF0006CDB5 /* RepositoryCell.swift */,
+			);
+			path = Row;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,20 +437,24 @@
 				6E257C2E26B139A500A08291 /* UserListView.swift in Sources */,
 				6E257C4F26B1809300A08291 /* Repository.swift in Sources */,
 				6E257C4D26B1807000A08291 /* RepoService.swift in Sources */,
+				6E00221C26B4D0EF0006CDB5 /* RepositoryCell.swift in Sources */,
 				6E257C6A26B36C0500A08291 /* UserDetailViewModel.swift in Sources */,
 				6E257C6C26B36C2600A08291 /* UserDetailViewController.swift in Sources */,
-				6E257C3026B139A500A08291 /* UserCellVM.swift in Sources */,
+				6E257C3026B139A500A08291 /* UserCellViewModel.swift in Sources */,
 				6E257C4826B15AC100A08291 /* URL+staticString.swift in Sources */,
 				6E257C3226B139A500A08291 /* UserListViewModel.swift in Sources */,
+				6E00221826B42E9A0006CDB5 /* UserInfoView.swift in Sources */,
 				6E257C4026B1595900A08291 /* Box.swift in Sources */,
 				6E257BEC26B1246300A08291 /* AppDelegate.swift in Sources */,
 				6E257C2D26B139A500A08291 /* ActivityIndicatorView.swift in Sources */,
 				6E257C4626B15AC100A08291 /* UIView+SafeArea.swift in Sources */,
+				6E00221A26B430700006CDB5 /* UserInfoViewModel.swift in Sources */,
 				6E257C3E26B157E400A08291 /* UserService.swift in Sources */,
 				6E257C3D26B157E400A08291 /* ImageService.swift in Sources */,
 				6E257C3626B13A1B00A08291 /* User.swift in Sources */,
 				6E257C2F26B139A500A08291 /* UserListViewController.swift in Sources */,
 				6E257C6E26B36C3800A08291 /* UserDetailView.swift in Sources */,
+				6E257C7126B3F51600A08291 /* RepositoryCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

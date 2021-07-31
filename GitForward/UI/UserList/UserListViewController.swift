@@ -129,7 +129,7 @@ extension UserListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellVM = vm.userCellVMs[indexPath.row]
-//        let detailVC = DetailViewController(viewModel: DetailViewModel(user: cellVM.user))
-//        navigationController?.pushViewController(detailVC, animated: true)
+        let detailVC = UserDetailViewController(viewModel: UserDetailViewModel(user: cellVM.user))
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }

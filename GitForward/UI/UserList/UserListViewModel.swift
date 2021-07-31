@@ -14,8 +14,8 @@ class UserListViewModel {
     private(set) var users = Box([User]())
     private(set) var state: Box<State> = Box(.idle)
 
-    var userCellVMs: [UserCellVM] {
-        users.value.map { UserCellVM(user: $0, imageService: imageService) }
+    var userCellVMs: [UserCellViewModel] {
+        users.value.map { UserCellViewModel(user: $0, imageService: imageService) }
     }
 
     private let userService: UserServiceProtocol

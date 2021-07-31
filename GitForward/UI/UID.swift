@@ -14,4 +14,8 @@ enum UID {
         static var reloadButton = "userlist-reloadButton"
         static var alertView = "userlist-alertView"
     }
+
+    enum UserDetail {
+        static var alertView = "userDetail-alertView"
+    }
 }

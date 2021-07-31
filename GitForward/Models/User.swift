@@ -13,7 +13,7 @@ struct User: Codable {
     let avatarUrl: URL
 }
 
-struct UserDetail: Codable {
+struct UserInfo: Codable {
     let id: Int
     let login: String
     let avatarUrl: URL

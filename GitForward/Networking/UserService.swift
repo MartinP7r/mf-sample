@@ -8,7 +8,7 @@
 import Foundation
 
 enum ServiceError: Error { case
-//    unexpected(Error),
+    //    unexpected(Error),
     apiError(Error),
     noData,
     decoding
@@ -16,7 +16,7 @@ enum ServiceError: Error { case
 extension ServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
-//        case .unexpected(let error): return "An unexpected error occurred: \(error.localizedDescription)"
+        //        case .unexpected(let error): return "An unexpected error occurred: \(error.localizedDescription)"
         case .apiError(let error): return "The server returned an error: \(error.localizedDescription)"
         case .decoding: return "Failed to decode data received from server"
         case .noData: return "The server response did not contain any data"
@@ -26,12 +26,21 @@ extension ServiceError: LocalizedError {
 
 protocol UserServiceProtocol {
     func getUsers(completion: @escaping (_ result: Result<[User], ServiceError>) -> Void)
+    func getUserRepos(user: User, completion: @escaping (_ result: Result<[Repository], ServiceError>) -> Void)
+    func getUserInfo(user: User, completion: @escaping (_ result: Result<UserInfo, ServiceError>) -> Void)
 }
 
+// TODO: rename to GitHubService
 final class UserService: UserServiceProtocol {
 
     private let session: URLSession
     private let decoder: JSONDecoder
+
+    enum Endpoint { case
+        users,
+        userInfo(login: String),
+        repositories(login: String)
+    }
 
     init(session: URLSession = .shared, decoder: JSONDecoder = .snakeCase) {
         self.session = session
@@ -39,37 +48,34 @@ final class UserService: UserServiceProtocol {
     }
 
     func getUsers(completion: @escaping (_ result: Result<[User], ServiceError>) -> Void) {
-        session
-            .dataTask(with: request()) { data, _, error in
-                guard error == nil else {
-                    return completion(.failure(.apiError(error!)))
-                }
-
-                guard let data = data else { return completion(.failure(.noData)) }
-
-                let decoder = JSONDecoder.snakeCase
-
-                guard let users = try? decoder.decode([User].self, from: data) else {
-                    return completion(.failure(.decoding))
-                }
-
-                return completion(.success(users))
-            }.resume()
+        fetch(request: request(.users), completion: completion)
     }
 
-    func getUserDetails(user: User, completion: @escaping (_ result: Result<[UserDetail], ServiceError>) -> Void) {
-        
+    func getUserInfo(user: User,
+                     completion: @escaping (_ result: Result<UserInfo, ServiceError>) -> Void) {
+        fetch(request: request(.userInfo(login: user.login)), completion: completion)
     }
 
     func getUserRepos(user: User,
-                      completion: @escaping (_ result: Result<[Repository], Error>) -> Void) {
-
+                      completion: @escaping (_ result: Result<[Repository], ServiceError>) -> Void) {
+        fetch(request: request(.repositories(login: user.login)), completion: completion)
     }
 
-    enum Endpoint { case users, userDetails, userRepos }
 
-    private func request() -> URLRequest {
-        let url = URL(staticString: "https://api.github.com/users")
+    private func request(_ endpoint: Endpoint) -> URLRequest {
+        var url = URL(staticString: "https://api.github.com/users")
+
+        switch endpoint {
+        case .users: break
+        case .userInfo(let login):
+            url.appendPathComponent(login)
+            print("URL", url.absoluteString)
+        case .repositories(let login):
+            url = url
+                .appendingPathComponent(login)
+                .appendingPathComponent("repos")
+            print("URL", url.absoluteString)
+        }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.timeoutInterval = 10.0
@@ -79,5 +85,25 @@ final class UserService: UserServiceProtocol {
             "Authorization": "Bearer \(Env.variable(.apiKey))"
         ]
         return urlRequest
+    }
+
+    private func fetch<M: Codable>(request: URLRequest,
+                                   completion: @escaping (_ result: Result<M, ServiceError>) -> Void) {
+        session
+            .dataTask(with: request) { data, _, error in
+                guard error == nil else {
+                    return completion(.failure(.apiError(error!)))
+                }
+
+                guard let data = data else { return completion(.failure(.noData)) }
+
+                let decoder = JSONDecoder.snakeCase
+
+                guard let users = try? decoder.decode(M.self, from: data) else {
+                    return completion(.failure(.decoding))
+                }
+
+                return completion(.success(users))
+            }.resume()
     }
 }
