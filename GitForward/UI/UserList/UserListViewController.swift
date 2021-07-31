@@ -106,6 +106,7 @@ fileprivate extension UserListViewController {
         }
         alertController.view.accessibilityIdentifier = UID.UserList.alertView
         alertController.addAction(alertAction)
+        present(alertController, animated: true)
     }
 }
 

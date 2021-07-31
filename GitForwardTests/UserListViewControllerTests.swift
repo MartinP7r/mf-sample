@@ -86,7 +86,7 @@ class UserListViewControllerTests: XCTestCase {
         XCTAssertEqual(button?.accessibilityIdentifier, UID.UserList.reloadButton)
     }
 
-    func test_viewModelBinding_callsUserService() throws {
+    func test_viewModelBinding_callsService() throws {
         XCTAssertEqual(mockGitHubService.callCount, 0)
 
         loadView()
@@ -111,7 +111,7 @@ class UserListViewControllerTests: XCTestCase {
         wait(for: [loadExpectation], timeout: 0.2)
     }
 
-    func test_userServiceError_changesState() throws {
+    func test_serviceError_changesState() throws {
         mockGitHubService.responseType = .withError
 
         XCTAssertEqual(sut.vm.state.value, .idle)

@@ -65,7 +65,7 @@ class UserInfoViewControllerTests: XCTestCase {
         XCTAssertNil(viewController)
     }
 
-    func test_viewModelBinding_callsUserService() throws {
+    func test_viewModelBinding_callsService() throws {
         XCTAssertEqual(mockGitHubService.callCount, 0)
 
         loadView()
@@ -77,7 +77,7 @@ class UserInfoViewControllerTests: XCTestCase {
         XCTAssertEqual(mockGitHubService.callCount, 2)
     }
 
-    func test_userServiceError_changesState() throws {
+    func test_serviceError_changesState() throws {
         mockGitHubService.responseType = .withError
 
         XCTAssertEqual(sut.vm.state.value, .idle)

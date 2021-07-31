@@ -10,7 +10,9 @@ import Foundation
 enum ServiceError: Error { case
     //    unexpected(Error),
     apiError(Error),
+    gitHubError(String),
     noData,
+    invalidResponse,
     decoding
 }
 extension ServiceError: LocalizedError {
@@ -19,7 +21,9 @@ extension ServiceError: LocalizedError {
         //        case .unexpected(let error): return "An unexpected error occurred: \(error.localizedDescription)"
         case .apiError(let error): return "The server returned an error: \(error.localizedDescription)"
         case .decoding: return "Failed to decode data received from server"
+        case .invalidResponse: return "The server's response was invalid"
         case .noData: return "The server response did not contain any data"
+        case .gitHubError(let message): return "GitHub says: \n\(message)"
         }
     }
 }
@@ -86,22 +90,33 @@ final class GitHubService: GitHubServiceProtocol {
     private func fetch<M: Codable>(request: URLRequest,
                                    completion: @escaping (_ result: Result<M, ServiceError>) -> Void) {
         session
-            .dataTask(with: request) { data, _, error in
+            .dataTask(with: request) { data, response, error in
                 guard error == nil else {
                     return completion(.failure(.apiError(error!)))
                 }
 
                 guard let data = data else { return completion(.failure(.noData)) }
 
+                guard let response = response as? HTTPURLResponse else { return completion(.failure(.invalidResponse)) }
+
                 let decoder = JSONDecoder.snakeCase
+
+                guard response.statusCode == 200 else {
+                    let message = try? decoder.decode(ErrorMessage.self, from: data)
+                    return completion(.failure(.gitHubError(message?.message ?? "")))
+                }
 
                 do {
                     let decodedData = try decoder.decode(M.self, from: data)
                     return completion(.success(decodedData))
                 } catch {
-                    print(error)
+                    print("decoding error", error, String(data: data, encoding: .utf8))
                     return completion(.failure(.decoding))
                 }
             }.resume()
+    }
+
+    private struct ErrorMessage: Decodable {
+        let message: String
     }
 }

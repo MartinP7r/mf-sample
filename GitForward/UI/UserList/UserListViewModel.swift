@@ -43,6 +43,7 @@ class UserListViewModel {
                         self.state.value = .idle
                         self.users.value = users
                     case .failure(let error):
+                        print("failure")
                         self.state.value = .error(error)
                     }
                 }

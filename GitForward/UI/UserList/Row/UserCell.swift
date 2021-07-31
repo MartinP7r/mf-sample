@@ -37,7 +37,7 @@ class UserCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         if let imageView = imageView {
-            imageView.image = UIColor.gray.image(imageView.frame.size)
+            imageView.image = UIColor.white.image(imageView.frame.size)
         }
         imageRequest?.cancel()
         imageRequest = nil
@@ -50,7 +50,7 @@ fileprivate extension UserCell {
 
     func setupView() {
         if let imageView = imageView {
-            imageView.image = UIColor.gray.image(.init(width: 44, height: 44))
+            imageView.image = UIColor.white.image(.init(width: 44, height: 44))
         }
         accessoryType = .disclosureIndicator
     }
