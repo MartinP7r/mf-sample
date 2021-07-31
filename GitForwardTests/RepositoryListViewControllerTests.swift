@@ -92,13 +92,13 @@ class RepositoryListViewControllerTests: XCTestCase {
         loadView()
 
         let loadExpectation = expectation(description: "load has finished")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             XCTAssertEqual(self.mockGitHubService.callCount, 1)
             XCTAssertEqual(self.sut.contentView.tableView.numberOfRows(inSection: 0), 22)
             loadExpectation.fulfill()
         }
 
-        wait(for: [loadExpectation], timeout: 0.2)
+        wait(for: [loadExpectation], timeout: 1)
     }
 
     func test_userServiceError_changesState() throws {

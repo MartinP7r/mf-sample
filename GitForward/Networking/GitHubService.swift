@@ -8,7 +8,6 @@
 import Foundation
 
 enum ServiceError: Error { case
-    //    unexpected(Error),
     apiError(Error),
     gitHubError(String),
     noData,
@@ -18,7 +17,6 @@ enum ServiceError: Error { case
 extension ServiceError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        //        case .unexpected(let error): return "An unexpected error occurred: \(error.localizedDescription)"
         case .apiError(let error): return "The server returned an error: \(error.localizedDescription)"
         case .decoding: return "Failed to decode data received from server"
         case .invalidResponse: return "The server's response was invalid"
@@ -110,7 +108,6 @@ final class GitHubService: GitHubServiceProtocol {
                     let decodedData = try decoder.decode(M.self, from: data)
                     return completion(.success(decodedData))
                 } catch {
-                    print("decoding error", error, String(data: data, encoding: .utf8))
                     return completion(.failure(.decoding))
                 }
             }.resume()

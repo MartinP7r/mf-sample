@@ -61,9 +61,9 @@ fileprivate extension UserInfoViewController {
             }
         }
 
-        vm.userInfo.bind { [weak self] userInfo in
+        vm.userInfoFormatted.bind { [weak self] viewModel in
             guard let self = self else { return }
-            self.contentView.configureWith(self.vm)
+            self.contentView.configureWith(viewModel)
         }
     }
 

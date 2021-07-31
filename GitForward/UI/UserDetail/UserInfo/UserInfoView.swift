@@ -44,7 +44,8 @@ class UserInfoView: UIView {
         activityIndicator.stopAnimating()
     }
 
-    func configureWith(_ vm: UserInfoViewModel) {
+    func configureWith(_ vm: UserInfoViewModel.Formatted?) {
+        guard let vm = vm else { return }
 
         handleLabel.text = vm.handle
         nameLabel.text = vm.name

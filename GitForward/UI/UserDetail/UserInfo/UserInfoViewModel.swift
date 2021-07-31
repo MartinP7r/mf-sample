@@ -14,35 +14,14 @@ class UserInfoViewModel {
     private let gitHubService: GitHubServiceProtocol
     private let imageService: ImageServiceProtocol
 
-    // TODO: refactor to userInfoFormatted?
-    private(set) var userInfo: Box<UserInfo?> = Box(nil)
+    private var userInfo: UserInfo? = nil {
+        didSet {
+            guard let userInfo = userInfo else { userInfoFormatted.value = nil; return }
+            userInfoFormatted.value = Formatted(userInfo: userInfo, imageService: imageService)
+        }
+    }
+    private(set) var userInfoFormatted: Box<Formatted?> = Box(nil)
     private(set) var state: Box<ViewState> = Box(.idle)
-
-    var handle: String {
-        if let userInfo = userInfo.value {
-            return "@\(userInfo.login)"
-        } else {
-            return ""
-        }
-    }
-
-    var name: String { userInfo.value?.name ?? "" }
-
-    var followersCount: String {
-        if let followers = userInfo.value?.followers {
-            return "\(followers) follower\(followers == 1 ? "":"s")"
-        } else {
-            return ""
-        }
-    }
-
-    var followingCount: String {
-        if let following = userInfo.value?.following {
-            return "\(following) following"
-        } else {
-            return ""
-        }
-    }
 
     init(user: User,
          gitHubService: GitHubServiceProtocol = GitHubService(),
@@ -52,7 +31,7 @@ class UserInfoViewModel {
         self.imageService = imageService
     }
 
-//    TODO: this should be a cached image since already fetched in UserList
+//    MEMO: this should refactored with image caching since already fetched in UserList
     func avatarImage(completion: @escaping (UIImage?) -> Void) -> Cancellable {
         imageService.getImage(for: user.avatarUrl, completion: completion)
     }
@@ -69,11 +48,34 @@ class UserInfoViewModel {
                     switch result {
                     case .success(let userInfo):
                         self.state.value = .idle
-                        self.userInfo.value = userInfo
+                        self.userInfo = userInfo
                     case .failure(let error):
                         self.state.value = .error(error)
                     }
                 }
             }
+    }
+}
+
+extension UserInfoViewModel {
+    struct Formatted {
+
+        private let userInfo: UserInfo
+        private let imageService: ImageServiceProtocol
+
+        init(userInfo: UserInfo,
+             imageService: ImageServiceProtocol = ImageService()) {
+            self.userInfo = userInfo
+            self.imageService = imageService
+        }
+
+        var handle: String { "@\(userInfo.login)" }
+        var name: String { userInfo.name }
+        var followersCount: String { "\(userInfo.followers) follower\(userInfo.followers == 1 ? "":"s")" }
+        var followingCount: String { "\(userInfo.following) following" }
+
+        func avatarImage(completion: @escaping (UIImage?) -> Void) -> Cancellable {
+            imageService.getImage(for: userInfo.avatarUrl, completion: completion)
+        }
     }
 }
