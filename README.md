@@ -13,3 +13,7 @@
 - 画像のキャッシュイング (例えば https://github.com/SDWebImage/SDWebImage )
 - Navigationを`Coordinator`パターンで実現
 - 課題のアプリ内`WebView`
+
+---
+
+問題、ご不明点などございましたら、Issueにてご連絡願います。
